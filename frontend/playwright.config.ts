@@ -11,6 +11,13 @@ export default defineConfig({
   retries: process.env['CI'] ? 2 : 0,
   workers: process.env['CI'] ? 1 : undefined,
   reporter: process.env['CI'] ? 'github' : 'list',
+  /** Starts/stops `ng serve` without `start-server-and-test` (avoids Windows `wmic.exe` teardown errors). */
+  webServer: {
+    command: 'npm run start:e2e',
+    url: 'http://127.0.0.1:4200',
+    reuseExistingServer: !process.env['CI'],
+    timeout: 180_000,
+  },
   use: {
     baseURL: 'http://127.0.0.1:4200',
     trace: 'on-first-retry',

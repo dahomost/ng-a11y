@@ -122,7 +122,7 @@ Commands:
 cd backend && npm test && npm run test:cov
 cd frontend && npm test -- --watch=false
 cd frontend && npm run playwright:install   # first-time Chromium for Playwright
-cd frontend && npm run e2e                   # serves app + Playwright + axe
+cd frontend && npm run e2e                   # Playwright starts dev server via webServer, then axe tests
 ```
 
 ## CI/CD
