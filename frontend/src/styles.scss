@@ -1,0 +1,41 @@
+/* Design tokens — contrast tuned for WCAG AA on light surfaces */
+:root {
+  --lib-color-bg: #f6f7fb;
+  --lib-color-surface: #ffffff;
+  --lib-color-text: #121826;
+  --lib-color-muted: #4b5565;
+  --lib-color-primary: #0b5cab;
+  --lib-color-primary-contrast: #ffffff;
+  --lib-color-danger: #b42318;
+  --lib-radius-sm: 6px;
+  --lib-radius-md: 10px;
+  --lib-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.08);
+  --lib-space-1: 0.25rem;
+  --lib-space-2: 0.5rem;
+  --lib-space-3: 0.75rem;
+  --lib-space-4: 1rem;
+  --lib-space-6: 1.5rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--lib-color-bg);
+  color: var(--lib-color-text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Visible focus for keyboard users */
+:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* Reduce accidental outlines on mouse clicks */
+:focus:not(:focus-visible) {
+  outline: none;
+}
