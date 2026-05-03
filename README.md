@@ -100,7 +100,8 @@ State combines **RxJS** (HTTP streams) with **Angular signals** (session, loadin
 - Modals: `role="dialog"`, `aria-modal`, `cdkTrapFocus` with initial focus in dialog body
 - Live regions for global errors and loading announcements
 - Visible `:focus-visible` outlines and Bootstrap components chosen for predictable contrast on light surfaces
-- **Automated checks:** `axe-core` via Cypress (`npm run e2e` runs `cypress-axe` smoke checks on the login view)
+- **Automated checks:** Playwright + `@axe-core/playwright` (`npm run e2e`) against WCAG 2.1 AA–oriented axe rule tags
+- **Conformance mapping:** see [`frontend/docs/accessibility-wcag.md`](frontend/docs/accessibility-wcag.md) for WCAG 2.1 AA / Section 508 alignment notes
 
 Manual verification across **Chrome, Edge, Firefox** and **mobile / desktop** breakpoints remains required for release sign-off.
 
@@ -109,8 +110,8 @@ Manual verification across **Chrome, Edge, Firefox** and **mobile / desktop** br
 | Layer | Tooling | Scope |
 |-------|---------|-------|
 | Backend unit | Jest | Services/controllers (mocked I/O) |
-| Frontend unit | Jest + `@angular-builders/jest` | Services + shell smoke tests |
-| Frontend E2E | Cypress + cypress-axe | Navigation + accessibility smoke |
+| Frontend unit | **Jest only** (`@angular-builders/jest`; Karma/Jasmine removed) | Components, services, guards |
+| Frontend E2E / a11y | **Playwright** + `@axe-core/playwright` | Auth routes + automated WCAG-oriented scans |
 | Coverage | Lcov | Consumed by Sonar (`sonar-project.properties`) |
 
 **Coverage targets:** the codebase is structured for high coverage; CI enforces green builds. Raise thresholds toward **≥90% branch coverage** incrementally per package as suites grow (collect with `npm run test:cov` in `backend/` and `ng test --watch=false` in `frontend/`).
@@ -120,7 +121,8 @@ Commands:
 ```bash
 cd backend && npm test && npm run test:cov
 cd frontend && npm test -- --watch=false
-cd frontend && npm run e2e     # serves app + runs Cypress headless
+cd frontend && npm run playwright:install   # first-time Chromium for Playwright
+cd frontend && npm run e2e                   # serves app + Playwright + axe
 ```
 
 ## CI/CD

@@ -1,0 +1,57 @@
+<a
+  class="visually-hidden-focusable position-absolute top-0 start-0 m-2 btn btn-sm btn-primary"
+  href="#main-content"
+>
+  Skip to main content
+</a>
+
+<div
+  class="position-fixed top-0 end-0 p-2"
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+  [class.visually-hidden]="!loading.isLoading()"
+>
+  Loading…
+</div>
+
+@if (toast.message(); as msg) {
+  <div class="alert alert-danger m-3" role="alert" [attr.aria-label]="'Application error: ' + msg">
+    <div class="d-flex justify-content-between gap-2 align-items-start">
+      <span>{{ msg }}</span>
+      <button type="button" class="btn btn-sm btn-outline-dark" (click)="toast.clear()">Dismiss</button>
+    </div>
+  </div>
+}
+
+<header class="border-bottom bg-body-tertiary" role="banner">
+  <div class="container py-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <span class="fw-semibold">Library Console</span>
+      @if (auth.user(); as u) {
+        <span class="text-muted small">Signed in as {{ u.email }} ({{ u.role }})</span>
+      }
+    </div>
+    <nav aria-label="Primary">
+      <ul class="nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/collections" routerLinkActive="active">Collections</a>
+        </li>
+      </ul>
+    </nav>
+    <app-ui-button variant="outline" (clicked)="logout()">Sign out</app-ui-button>
+  </div>
+</header>
+
+<main id="main-content" class="container py-4" tabindex="-1" role="main">
+  <router-outlet />
+</main>

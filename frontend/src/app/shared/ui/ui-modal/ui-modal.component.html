@@ -1,0 +1,25 @@
+@if (open()) {
+  <div class="modal fade show d-block" tabindex="-1" role="presentation" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div
+        class="modal-content"
+        cdkTrapFocus
+        cdkTrapFocusAutoCapture
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-labelledby]="titleId()"
+      >
+        <div class="modal-header">
+          <h2 class="modal-title h5" [id]="titleId()">{{ title() }}</h2>
+          <app-ui-button variant="outline" [ariaLabel]="'Close dialog'" (clicked)="close.emit()">
+            Close
+          </app-ui-button>
+        </div>
+        <div class="modal-body" #body>
+          <ng-content />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show" (click)="backdropClose.emit()" role="presentation" tabindex="-1"></div>
+}

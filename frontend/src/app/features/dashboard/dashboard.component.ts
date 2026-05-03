@@ -11,22 +11,8 @@ import { TagsService } from '../tags/tags.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterLink, UiCardComponent],
+  templateUrl: './dashboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="row g-3">
-      <div class="col-md-6">
-        <app-ui-card title="Collections" headingId="dash-collections" subtitle="Total cataloged items.">
-          <p class="display-6 mb-3" aria-live="polite">{{ collectionCount() }}</p>
-          <a class="btn btn-primary" routerLink="/collections">Manage collections</a>
-        </app-ui-card>
-      </div>
-      <div class="col-md-6">
-        <app-ui-card title="Tags" headingId="dash-tags" subtitle="Controlled vocabulary size.">
-          <p class="display-6 mb-3" aria-live="polite">{{ tagCount() }}</p>
-        </app-ui-card>
-      </div>
-    </div>
-  `,
 })
 export class DashboardComponent implements OnInit {
   private readonly collections = inject(CollectionsService);

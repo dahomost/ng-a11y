@@ -14,44 +14,8 @@ import { UiButtonComponent } from '../ui-button/ui-button.component';
   selector: 'app-ui-modal',
   standalone: true,
   imports: [A11yModule, UiButtonComponent],
-  template: `
-    @if (open()) {
-      <div class="modal fade show d-block" tabindex="-1" role="presentation" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-          <div
-            class="modal-content"
-            cdkTrapFocus
-            cdkTrapFocusAutoCapture
-            role="dialog"
-            aria-modal="true"
-            [attr.aria-labelledby]="titleId()"
-          >
-            <div class="modal-header">
-              <h1 class="modal-title h5" [id]="titleId()">{{ title() }}</h1>
-              <app-ui-button variant="outline" [ariaLabel]="'Close dialog'" (clicked)="close.emit()">
-                Close
-              </app-ui-button>
-            </div>
-            <div class="modal-body" #body>
-              <ng-content />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-backdrop fade show" (click)="backdropClose.emit()" role="presentation"></div>
-    }
-  `,
-  styles: [
-    `
-      .modal {
-        pointer-events: none;
-      }
-      .modal-dialog,
-      .modal-backdrop {
-        pointer-events: auto;
-      }
-    `,
-  ],
+  templateUrl: './ui-modal.component.html',
+  styleUrl: './ui-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiModalComponent {

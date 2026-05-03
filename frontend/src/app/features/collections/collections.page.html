@@ -1,0 +1,79 @@
+<app-ui-card title="Collections" subtitle="Catalog items available to patrons." headingId="collections-heading">
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <a class="btn btn-outline-secondary" routerLink="/dashboard">Back to dashboard</a>
+    @if (canManage()) {
+      <app-ui-button [busy]="saving()" (clicked)="openCreate()">Add collection</app-ui-button>
+    }
+  </div>
+
+  <app-ui-table caption="Library collections" [columns]="columns()">
+    @for (c of rows(); track c.id) {
+      <tr>
+        <td>{{ c.title }}</td>
+        <td>{{ c.author ?? '—' }}</td>
+        <td>{{ c.category ?? '—' }}</td>
+        <td>{{ c.language ?? '—' }}</td>
+        <td class="text-end">
+          @if (canManage()) {
+            <app-ui-button variant="outline" (clicked)="openEdit(c)">Edit</app-ui-button>
+            <app-ui-button variant="danger" class="ms-2" [busy]="deletingId() === c.id" (clicked)="remove(c)">
+              Delete
+            </app-ui-button>
+          }
+        </td>
+      </tr>
+    }
+  </app-ui-table>
+</app-ui-card>
+
+<app-ui-modal
+  [open]="modalOpen()"
+  [title]="modalTitle()"
+  titleId="collection-modal-title"
+  (close)="closeModal()"
+  (backdropClose)="closeModal()"
+>
+  <form [formGroup]="form" (ngSubmit)="save()" novalidate [attr.aria-labelledby]="'collection-modal-title'">
+    <div class="row g-3">
+      <div class="col-12">
+        <label class="form-label" for="col-title">Title</label>
+        <input
+          id="col-title"
+          class="form-control"
+          formControlName="title"
+          required
+          aria-required="true"
+          [attr.aria-invalid]="form.controls.title.invalid && form.controls.title.touched ? 'true' : 'false'"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="col-author">Author</label>
+        <input id="col-author" class="form-control" formControlName="author" />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="col-category">Category</label>
+        <input id="col-category" class="form-control" formControlName="category" />
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="col-desc">Description</label>
+        <textarea id="col-desc" class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="col-pub">Published date</label>
+        <input id="col-pub" type="date" class="form-control" formControlName="publishedDate" />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="col-isbn">ISBN</label>
+        <input id="col-isbn" class="form-control" formControlName="isbn" />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="col-lang">Language</label>
+        <input id="col-lang" class="form-control" formControlName="language" />
+      </div>
+    </div>
+    <div class="mt-4 d-flex gap-2 justify-content-end">
+      <app-ui-button variant="outline" type="button" (clicked)="closeModal()">Cancel</app-ui-button>
+      <app-ui-button type="submit" [busy]="saving()" [disabled]="form.invalid">Save</app-ui-button>
+    </div>
+  </form>
+</app-ui-modal>

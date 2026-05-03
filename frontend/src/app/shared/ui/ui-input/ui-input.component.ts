@@ -5,25 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-ui-input',
   standalone: true,
   imports: [FormsModule],
-  template: `
-    <label class="form-label" [attr.for]="controlId()">{{ label() }}</label>
-    <input
-      class="form-control"
-      [id]="controlId()"
-      [name]="controlId()"
-      [type]="type()"
-      [attr.autocomplete]="autocomplete()"
-      [attr.aria-invalid]="invalid() ? 'true' : 'false'"
-      [attr.aria-describedby]="describedBy()"
-      [attr.required]="required() ? true : null"
-      [disabled]="disabled()"
-      [ngModel]="value()"
-      (ngModelChange)="valueChange.emit($event)"
-    />
-    @if (hint()) {
-      <div class="form-text" [id]="hintId()">{{ hint() }}</div>
-    }
-  `,
+  templateUrl: './ui-input.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiInputComponent {

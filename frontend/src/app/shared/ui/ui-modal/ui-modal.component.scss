@@ -1,0 +1,8 @@
+.modal {
+  pointer-events: none;
+}
+
+.modal-dialog,
+.modal-backdrop {
+  pointer-events: auto;
+}
