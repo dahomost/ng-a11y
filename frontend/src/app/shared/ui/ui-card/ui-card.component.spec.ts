@@ -19,4 +19,11 @@ describe('UiCardComponent', () => {
     expect(root.querySelector('h2')?.textContent).toContain('T');
     expect(root.querySelector('section')?.getAttribute('aria-labelledby')).toBe('hid');
   });
+
+  it('renders subtitle if provided', () => {
+    fixture.componentRef.setInput('subtitle', 'S');
+    fixture.detectChanges();
+    const root: HTMLElement = fixture.nativeElement;
+    expect(root.querySelector('p')?.textContent).toContain('S');
+  });
 });

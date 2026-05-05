@@ -11,6 +11,7 @@ test.describe('Accessibility (axe)', () => {
     await expect(page.getByRole('heading', { name: /sign in/i })).toBeVisible();
 
     const results = await new AxeBuilder({ page })
+    //wcag2a: used for identifying accessibility issues that can be fixed by making the content more perceivable.
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
       .analyze();
 
